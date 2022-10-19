@@ -1,0 +1,30 @@
+
+
+<section style="color: #fff;font-family: inherit;font-weight: bold;">
+    <div class="row mt-5" style="justify-content: center;">
+         
+        <div class="col-md-6 ">
+            <h2 class="text-center">Add Products</h2>
+          <form action="/admin/add-product" method="post" enctype="multipart/form-data">          {{!--file aploding --}}
+                <label for="">Name</label>
+                <input placeholder="Enter Your Name" type="text" name="Name" class="form-control">
+
+                <label for="">Category</label>
+                <input placeholder="Enter Your Category" type="text" name="Category" class="form-control">
+
+                <label for="">Price</label>
+                <input placeholder="Enter Your Price" type="text" name="Price" class="form-control">
+
+                   <label for="">Discription</label>
+                <input placeholder="Enter Your Discription"  type="text" name="Description" class="form-control">
+                    <br>
+                   <label for="">Upload Image</label>
+                <input  type="file" name="Image" class="form-control">
+
+                <button type="submit" class="btn btn-success mt-4">Submit</button>
+
+
+            </form>
+        </div>
+    </div>
+</section>
