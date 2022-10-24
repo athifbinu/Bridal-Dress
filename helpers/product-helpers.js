@@ -10,8 +10,6 @@ module.exports={
         db.get().collection('product').insertOne(product).then((data)=>{
              callback(data.insertedId)
              
-             
-       
             
         })
 

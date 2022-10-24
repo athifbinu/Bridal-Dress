@@ -9,7 +9,10 @@ var adminRouter = require("./routes/admin");
 const { engine: hbs } = require("express-handlebars");
 var app = express();
 var fileupload=require("express-fileupload");
-var db=require('./DATABASE/connection')
+var ExSession=require("express-session")   //express session
+var db=require('./DATABASE/connection');
+const { Cookie } = require("express-session");
+
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -31,6 +34,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/style',express.static(path.join(__dirname, "public/stylesheet")));
 app.use(fileupload())
+app.use(ExSession({secret:"key",cookie:{maxAge:60000}}))    //express session difine is automatic logout user
 db.connect((err)=>{          //databse Connection
    if(err) console.log("connection errr"+err)
    else console.log("Database Connected Port 27017")
