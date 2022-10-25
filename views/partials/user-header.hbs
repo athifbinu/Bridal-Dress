@@ -23,12 +23,16 @@
             <ul>
                 <li><a href="#Home">Home</a></li>
                 <li><a href="#founders">About Us</a></li>
+                {{#if user}}
                 <li><a href="#Gallery">Shop</a></li>
+                {{/if}}
                 <li><a href="#Location">Contact</a></li>
+            
                 <a href="" style="text-decoration:none ;">
                  <img class="cart-img" src="images/cart.png" alt="">
                  <p style="color:#fff;margin-left:60px;margin-top: 10px;">Cart</p>
                 </a>
+
                  <a href="/loging" style="text-decoration:none;">
                   <img class="cart-img" src="images/loging.png" alt="">
                  <p style="color:#fff;margin-left:20px;margin-left:50px;margin-top: 10px;" >Loging</p>
@@ -36,7 +40,24 @@
                 
             </ul>
           {{!-- dropdown --}}
-       
+<div style="margin-top:-88px;position: absolute;margin-left:561px;" class="dropdown">
+  <button class="btn btn-success " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     {{#if user}}
+     {{user.Name}}
+     {{else}}
+     Account
+     {{/if}}
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {{#if user}}
+        <a class="dropdown-item" href="/logout">Logout</a>
+        {{else}}
+        <a class="dropdown-item" href="/loging"></a>
+        {{/if}}
+ 
+  </div>
+</div>
+
 
 
 
@@ -47,3 +68,4 @@
     </div>    
 </body>
 </html>
+

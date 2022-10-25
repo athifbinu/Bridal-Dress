@@ -5,6 +5,18 @@ const productHelpers = require('../helpers/product-helpers');
 const userHelpers=require('../helpers/user-helpers');
 var router = express.Router();
 
+
+//user checking
+
+const verifyloging=(req,res,next)=>{
+  if(req.session.loggedIn) {
+    next()
+  }else{
+    res.redirect('/loging')
+  }
+}
+ 
+
 /* GET home page. */
 
 router.get('/',function(req,res,next){
@@ -13,20 +25,24 @@ router.get('/',function(req,res,next){
 })
 
 
+router.get('/Productbanner',verifyloging,function(req,res,next){
 
-
-router.get('/Productbanner',function(req,res,next){
-
-  let users=req.ExSession.user            //check user to loging
-  console.log(users)
+  let user=req.session.user            //check user to loging
+  console.log(user)
   productHelpers.getallProducts().then((products)=>{
-    res.render('user/Productbanner',{products})
+    res.render('user/Productbanner',{products,user})
   })
 
 })
 
 router.get('/loging',function(req,res){
-  res.render('user/loging')  
+  if(req.session.loggedIn) {
+    res.redirect('/')
+  }else{
+    res.render('user/loging',{"loginErr":req.session.loginErr})  
+    req.session.loginErr=false     //second tyme passing err
+  }
+
 })
 
 router.get('/signup',function(req,res){
@@ -36,6 +52,8 @@ router.get('/signup',function(req,res){
 router.post('/signup',(req,res)=>{
   userHelpers.doSignup(req.body).then((response)=>{
     console.log(response);
+    req.session.loggedIn=true
+    req.session.user=response.user
     res.redirect('/Productbanner')
   })
 
@@ -44,12 +62,12 @@ router.post('/signup',(req,res)=>{
 router.post('/loging',(req,res)=>{
   userHelpers.doLoging(req.body).then((response)=>{
     if(response.status){
-    
-      req.ExSession.loggedIn=true;   
-      req.ExSession.user=response.user 
+    console.log(response)
+    req.session.loggedIn=true
+     req.session.user=response.user
       res.redirect('/Productbanner')   
     }else{
-      req.ExSession.logingErr=true;
+      req.session.loginErr="Invalid Username and Password"
       res.redirect('/loging')
     }
   })
@@ -57,11 +75,19 @@ router.post('/loging',(req,res)=>{
 })
 
 
+
 router.get('/logout',(req,res)=>{
-  req.ExSession.destroy()
+  req.session.user=null
   res.redirect('/')
 
+
 })
+
+
+router.get('/cart',verifyloging,(req,res)=>{
+  res.render('user/cart')
+})
+
 
 
 
