@@ -2,7 +2,8 @@
 var db=require('../DATABASE/connection')
 var collection=require('../DATABASE/collections')
 const bcrypt=require('bcrypt');
-
+const { response } = require('../app');
+const ObjectId=require('mongodb').ObjectId
 
 
 module.exports={
@@ -46,8 +47,109 @@ module.exports={
             }
         })
 
+    }, 
+
+    //cart section
+
+    addToCart:(proId,userId)=>{
+       let proObj={
+        item:ObjectId(proId),
+        quantity:1
+
+       }
+       return new Promise(async(resolve,riject)=>{
+        let userCart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
+        if(userCart){
+            let proExist=userCart.products.findIndex(product=>product.item==proId)
+            console.log(proExist)
+            if(proExist!=-1){
+                  db.get().collection(collection.CART_COLLECTION)
+                  .updateOne({user:ObjectId(userId),'products.item':ObjectId(proId)},
+                       {
+                        $inc:{'products.$.quantity':1}
+
+                       }
+                  
+                  ).then(()=>{
+                    resolve()
+                  })
+            }else{
+
+                db.get(collection.CART_COLLECTION)
+                db.get().collection(collection.CART_COLLECTION)
+                .updateOne({user:ObjectId(userId)},
+                   
+                   {
+                       $push:{products:proObj}
+                   }
+                ).then((response)=>{
+                    resolve()
+                })
+            }
+        }else{
+            let cartobj={
+                user:ObjectId(userId),
+                products:[proObj]
+            }
+            db.get().collection(collection.CART_COLLECTION).insertOne(cartobj).then((response)=>{
+                resolve()
+            })
+        }
+
+       })
+    },
+
+
+   
+    getCartProducts:(userId)=>{
+        return new Promise(async(resolve,riject)=>{
+            let cartItems=await db.get().collection(collection.CART_COLLECTION).aggregate([
+                {
+                    $match:{user:ObjectId(userId)}
+                },
+                {
+                    $unwind:"$products"
+                },
+                {
+                    $project:{
+                       item:'$products.item',
+                       quantity:'&products.quantity'
+                    }
+                },
+                {
+                    $lookup:{
+                        from:collection.PRODUCT_COLLECTION,
+                        localField:'item',
+                        foreignField:'_id',
+                        as:'product'
+                    }
+                },
+                {
+                    $project:{
+                        item:1,quantity:1,product:{$arrayElemAt:['$product',0]}
+                    }
+                }
+            ]).toArray()
+            resolve(cartItems)
+        })
+    },
+    
+
+    getCartCount:(userId)=>{
+        return new Promise(async(resolve,riject)=>{
+            let count=0
+            let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
+            if (cart) {
+                count=cart.products.length
+            }
+            resolve(count)
+        })
     }
+
  
+
+   
+
 }
 
 

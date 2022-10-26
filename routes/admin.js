@@ -60,8 +60,10 @@ router.post('/edit-product/:id',(req,res)=>{
   productHelpers.updateProduct(req.params.id,req.body).then(()=>{
     res.redirect('/admin')
     if(req.files.Image){
-      let Image=req.files.Image
-      Image.mv('./public/product.images/'+id+'.jpg')
+      console.log(req.files.Image)
+      let image=req.files.Image
+      image.mv('./public/product.images/'+id+'.jpg')
+      console.log(image)
   
     }
 
