@@ -25,21 +25,15 @@ router.get('/',function(req,res,next){
 })
 
 
-router.get('/Productbanner',verifyloging,async function(req,res,next){
 
-  let user=req.session.user            //check user to loging
-  console.log(user)
-  let cartCount=null
-  if(req.session.user) {
-    cartCount=await userHelpers.getCartCount(req.session.user._id)
-
-  }
+router.get('/Productbanner',verifyloging,(req,res)=>{
   productHelpers.getallProducts().then((products)=>{
 
-    res.render('user/Productbanner',{products,user})
+    res.render('user/Productbanner',{products})
+      console.log(products)
   })
-
 })
+
 
 router.get('/loging',function(req,res){
   if(req.session.loggedIn) {
@@ -89,19 +83,24 @@ router.get('/logout',(req,res)=>{
 
 })
 
+//cart
 router.get('/cart',verifyloging,async(req,res)=>{
-  let products=await userHelpers.getCartProducts(req.session.user._id)
-
-  console.log(products)
-  res.render('user/cart',{products,user:req.session.user})
+  
+  res.render('user/cart')
 })
 
-router.get('/add-to-cart/:id',(req,res)=>{
-    console.log("api call")
-    userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{
-      res.json({status:true})
-    })
+
+
+router.get('/add-to-cart/:id',verifyloging,(req,res)=>{
+  console.log("api calling")
+  userHelpers.addToCart(req.params.id,req.session.user._id).then(()=>{
+    res.redirect('/Productbanner')
+       
+  })
+  
+
 })
+
 
 
 
