@@ -16,7 +16,7 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form action="/loging" method="post">
+    <form action="/loging" method="POST">
      
          <h3>Login Here</h3> 
         {{#if loginErr}}  
@@ -25,18 +25,26 @@
 
         <label for="Email">Email</label>
         <input type="Email" placeholder="Email or Phone" name="Email">
-
+  
         <label for="password">Password</label>
         <input type="password" placeholder="Password" name="password">
 
-        <button>Log In</button>
-        <div class="create">
+     <button type="submit" class="btn btn-light" style="width: 126px;margin-left: 94px;margin-top: 10px;border: 10px;">Light</button>
+    
+    <div class="create">
          <a href="/signup">Create An Account</a>
-        </div>
-    </form>
+        </div> 
+    
+</form>
+
+   
+      
+      
+    
+
+  
 </body>
 </html>
-
 
 
      <!--Stylesheet-->
@@ -70,8 +78,8 @@ body{
         #1845ad,
         #23a2f6
     );
-    left: -80px;
-    top: -80px;
+    left: -50px;
+    top: -50px;
 }
 .shape:last-child{
     background: linear-gradient(
@@ -83,12 +91,12 @@ body{
     bottom: -80px;
 }
 form{
-     height: 600px;
-    width: 374px;
+     height: 400px;
+    width: 400px;
     background-color: rgba(255,255,255,0.13);
     position: absolute;
     transform: translate(-50%,-50%);
-    top: 58%;
+    top: 60%;
     left: 50%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
@@ -130,20 +138,13 @@ input{
 ::placeholder{
     color: #e5e5e5;
 }
-button{
-    margin-top: 50px;
-    width: 100%;
-    background-color: #ffffff;
-    color: #080710;
-    padding: 15px 0;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-}
 .create{
-  margin-top: 30px;
+  text-decoration: none;
   display: flex;
-} 
+  justify-content: center;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
 
     </style> 

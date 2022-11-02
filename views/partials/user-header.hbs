@@ -8,8 +8,10 @@
 </head>
 <body style="background-color: black;">
         <div class="navbar">
-        <div class="brand-logo">
-           <img src="images/logo.png" alt="">
+        <div  class="brand-logo">
+          <a href="/">
+           <img  src="images/logo.png" alt="">
+           </a>
         </div>
         <br>
         <div class="brand-tittle">
@@ -29,7 +31,8 @@
                 <li><a href="#Location">Contact</a></li>
             
                 <a href="/cart" style="text-decoration:none ;">
-                 <img class="cart-img" src="images/cart.png" alt="">
+                 <img class="cart-img" src="images/cart.png"   >
+                 <span style="position: absolute;color: black; margin-left: -31px;font-size: 22px;margin-top: -7px;" class="badge" id="cart-count">{{CartCount}}</span>
                  <p style="color:#fff;margin-left:60px;margin-top: 10px;">Cart</p>
                 </a>
 
@@ -37,35 +40,83 @@
                   <img class="cart-img" src="images/loging.png" alt="">
                  <p style="color:#fff;margin-left:20px;margin-left:50px;margin-top: 10px;" >Loging</p>
                  </a>
+
                 
             </ul>
+
+
+
+
           {{!-- dropdown --}}
-<div style="margin-top:-88px;position: absolute;margin-left:561px;" class="dropdown">
-  <button class="btn btn-success " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     {{#if user}}
-     {{user.Name}}
-     {{else}}
-     Account
-     {{/if}}
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        {{#if user}}
-        <a class="dropdown-item" href="/logout">Logout</a>
-        {{else}}
-        <a class="dropdown-item" href="/loging"></a>
-        {{/if}}
- 
-  </div>
-</div>
-
-
-
-
-
+       
     
+                   <div class="drop-down" style="position: absolute;">
+          <img  class="profile" id="profiles"  src="images/profile.jpg" alt="">
+          
+            <div id="SubLink" class="sub-menu-link">
+             {{#if user}}
+                <a style="color: #fff;text-decoration: none;" href="/logout">Logout</a >
+              {{else}}
+                <a style="color: #fff;text-decoration: none;" href="/loging">Loging</a>
+                {{/if}}
 
+            </div>
+
+      </div> 
         </div>
-    </div>    
+    </div>   
+
+
+    <script>
+           const profiles=document.getElementById('profiles')  
+           const subLink=document.getElementById('SubLink')      
+             
+             profiles.addEventListener("click",function handleClick(){
+
+                if(subLink.style.display==='none'){
+                    subLink.style.display='block'
+
+                         profiles.textContent = 'Hide div';
+                     
+                }
+                else{
+                  subLink.style.display='none'
+                      profiles.textContent = 'Hide div';
+                }              
+             })
+     
+           
+    </script> 
+
+
 </body>
 </html>
+
+<style>
+    .profile{
+   width: 50px;
+    height: 50px;
+    clip-path: circle();
+    justify-content: end;
+    margin-left: 494px;
+    position: absolute;
+    margin-top: -99px;
+      
+    }
+    .sub-menu-link {
+    
+        align-items: center;
+        text-decoration: none;
+        color: #fff;
+        margin: 12px 0;
+          margin-left: 494px;
+         margin-top: -47px;
+       
+    }
+ 
+
+</style>
+
+
+
 
