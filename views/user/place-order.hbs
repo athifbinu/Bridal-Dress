@@ -1,0 +1,64 @@
+<div class="container mt-5">
+
+  <div class="child-1">
+    <h1 style="text-align: center;">Enter Your Shoping <br> Detailes</h1>
+            <label for="">Adress</label>
+           <input type="text" name="address" id="address" class="form-control">
+                        <label for="">Pincode</label>
+                        <input type="text" name="pincode" id="pincode" class="form-control">
+                        <label for="">Mobile number</label>
+                        <input type="text" name="mobile" id="mobile" class="form-control">
+                        <input type="text" name="userId" value="{{user._id}}" hidden>
+    
+
+  </div>
+   
+   
+  <div class="child-2">
+    <h5 style="text-align: center;" class="mt-4">Total amount: Rs. {{total}}</h5>
+         <hr>
+      <div style="text-align:center;"  class="payment">
+     <p >Select Your Payment Method</p>
+     <label style="padding-right:76px;" class="radio-inline">
+      <input  type="radio" name="payment-method" value="COD" checked> COD
+       </label>
+       <br>
+    <label class="radio-inline mt-2">
+     <input type="radio" name="payment-method" value="ONLINE"> Online payment
+     </label>
+     <br>
+    
+    <button style="margin-top: -30px;" class="btn btn-primary mt-4 " type="submit">Checkout</button>
+    
+    <p style="font-weight: bold;margin-top: 10px;">
+        Enjoy The Secure Payment
+    </p>
+
+   
+
+  </div>
+  
+</div>
+
+
+<style>
+    .container {
+    padding: 20px;
+    
+}
+
+.child-1,.child-2 {
+    
+    width: 50%;
+    float: left;
+    padding: 20px;
+    background-color: goldenrod;
+    height: 100%;
+    
+} 
+.child-2{
+    padding-left: 50px;
+}
+
+
+</style>
