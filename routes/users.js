@@ -42,6 +42,11 @@ router.get('/Productbanner',verifyloging,async(req,res)=>{
 })
 
 
+router.get('/Makeup',(req,res)=>{
+  res.render('user/Makeup')
+})
+
+
 router.get('/loging',function(req,res){
   if(req.session.loggedIn) {
     res.redirect('/')
@@ -117,6 +122,7 @@ router.get('/add-to-cart/:id',(req,res)=>{
   })
 
 
+
   router.post('/change-product-quantity',(req,res,next)=>{
     console.log(req.body)
       userHelpers.changeProductQuantity(req.body).then(async(response)=>{
@@ -128,10 +134,10 @@ router.get('/add-to-cart/:id',(req,res)=>{
 
 
 
-  router.get('/place-order',async(req,res)=>{
-    let total=await userHelpers.getTotalAmount(req.session.user._id)
-    console.log(total)
-    res.render('user/place-order',total)
+  router.get('/place-order',(req,res)=>{
+    // let total=await userHelpers.getTotalAmount(req.session.user._id)
+    // console.log(total)
+    res.render('user/place-order')
   })
 
   

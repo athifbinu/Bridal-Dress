@@ -21,5 +21,18 @@
     "nodemon": "^2.0.20",
     "objectid": "^2.3.0",
     "promise": "^8.3.0"
-  }
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/athifbinu/Bridal-Dress.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/athifbinu/Bridal-Dress/issues"
+  },
+  "homepage": "https://github.com/athifbinu/Bridal-Dress#readme",
+  "description": ""
 }
