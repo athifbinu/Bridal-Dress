@@ -104,6 +104,7 @@ router.get('/logout',(req,res)=>{
 //cart
 
 router.get('/cart',verifyloging,async(req,res)=>{
+  console.log("requst idddddd ::  ")
   let products=await userHelpers.getCartProducts(req.session.user._id)
   
   console.log(products)
@@ -118,28 +119,25 @@ router.get('/add-to-cart/:id',(req,res)=>{
   // res.json({status:true})
   res('/Productbanner')
   })
-
+ 
   })
+
 
 
   router.post('/change-product-quantity',(req,res,next)=>{
     console.log(req.body)
-    userHelpers.changeProductQuantity(req.body).then((response)=>{
-     
+      userHelpers.changeProductQuantity(req.body).then(async(response)=>{
+        response.total=await userHelpers.getTotalAmount(req.body.user)
+        res.json(response)
 
-    })
+      })
   })
 
 
 
-
-
-
-
-
-
   router.get('/place-order',(req,res)=>{
-
+    // let total=await userHelpers.getTotalAmount(req.session.user._id)
+    // console.log(total)
     res.render('user/place-order')
   })
 

@@ -17,15 +17,17 @@
                 {{#each products}}
                 <tr>
                   
-                    <td><img style="width: 70px; height: 70px;" src="/product-images/{{this.product._id}}.jpg" alt=""></td>
+                    <td><img style="width: 70px; height: 70px;" src="/product.images/{{this.product._id}}.jpg" alt=""></td>
                     <td>{{this.product.Name}}</td>
-                     <td>{{this.product.Price}}</td>
+                    <td>{{this.product.Price}}</td>
                     
                      <td>
-                      <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',-1)">-</button>
+                      <button class="cart-item-count mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',-1)">-</button>
                         <span id="{{this.product._id}}">{{this.quantity}}</span>
-                        <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}',1)">+</button>
-
+                        <button class="cart-item-count ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user._id}}',1)">+</button>
+                    
+                     
+                       
                      </td>
                      <td>
                         <a href="#" class="btn btn-danger">Remove</a>
@@ -38,7 +40,7 @@
         </table>
         <hr>
      
-       <h3 style="text-align:end;color:#fff;margin-right:170px;">Totel:Rs  <span></span></h3>
+       <h3 style="text-align:end;color:#fff;margin-right:170px;">Totel:Rs  <span id="total">{{totalValue}}</span></h3>
        
        <a   style="margin-left: 670px;font-weight: bold;" href="/place-order" class="btn btn-success mt-3">Place Order</a>
     
@@ -48,9 +50,12 @@
 
 
 <script>
-    function changeQuantity(cartId,proId,count){
-          
-          $.ajax({
+    function changeQuantity(cartId,proId,userId,count){
+        console.log(proId)
+        let quantity=parseInt(document.getElementById(proId).innerHTML)
+        count=parseInt(count)
+
+        $.ajax({
             url:'/change-product-quantity',
             data:{
                 user:userId,
@@ -58,22 +63,21 @@
                 product:proId,
                 count:count,
                 quantity:quantity
-               
-                
             },
-            method;'post',
+            method:'post',
             success:(responce)=>{
-                alert("product removed")
-            }
-            
+                if(responce.removeProduct){
+                    alert("product Removed From Cart")
+                    location.reload()
 
-          })
+                }else{
+                    document.getElementById(proId).innerHTML=quantity+count
+                    document.getElementById('total').innerHTML=responce.total
+                }
+            }
+        })
     }
 </script>
-
-
-
-
 
 
 
