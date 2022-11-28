@@ -13,7 +13,7 @@
 
   </div>
    
-   
+  
   <div class="child-2">
     <h5 style="text-align: center;" class="mt-4">Total amount: Rs. {{total}}</h5>
          <hr>
@@ -29,7 +29,7 @@
      <br>
     
     <button style="margin-top: -30px;" class="btn btn-primary mt-4 " type="submit">Checkout</button>
-    
+  
     <p style="font-weight: bold;margin-top: 10px;">
         Enjoy The Secure Payment
     </p>
@@ -39,6 +39,25 @@
   </div>
   
 </div>
+
+<script>
+   $("#checkout-form").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:'/place-order',
+      method:'post',
+      data:$('#checkout-form').serialize(),
+      success:(responce)=>{
+        alert(responce)
+      }
+    })
+   })
+
+</script>
+
+
+
+
 
 
 <style>
