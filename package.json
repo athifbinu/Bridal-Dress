@@ -16,6 +16,7 @@
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
+    "jquery": "^3.6.1",
     "mongodb": "^4.10.0",
     "morgan": "~1.9.1",
     "ndb": "^0.2.4",

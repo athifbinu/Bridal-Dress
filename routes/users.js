@@ -1,6 +1,7 @@
 'use strict';
 const { response } = require('express');
 var express = require('express');
+const { request } = require('../app');
 const productHelpers = require('../helpers/product-helpers');
 const userHelpers=require('../helpers/user-helpers');
 var router = express.Router();
@@ -139,27 +140,37 @@ router.get('/add-to-cart/:id',(req,res)=>{
 
   router.get('/place-order',verifyloging,async(req,res)=>{
      let total=await  userHelpers.getTotalAmount(req.session.user._id)
+     console.log(total)
     res.render('user/place-order',{total,user:req.session.user})
+    
   })
- 
 
+  
   router.post('/place-order',async(req,res)=>{
-    let products=await userHelpers.getproductlist(req.body.userId)
-    let totel=await userHelpers.getTotalAmount(req.body.userId)
-    userHelpers.placeorder(req.body.products,totalPrice).then((response)=>{
-             
-      res.json({status:true})
-      
+    
+    let products=await userHelpers.getCartProductList(req.body.userId)
+    let totalPrice=await userHelpers.getTotalAmount(req.body.userId)
+
+    userHelpers.placeorder(req.body,products,totalPrice).then((responce)=>{
+
+      if(request.body['payment-Method']=='COD'){
+        res.json({status:true})
+      }
+      //razorpay
+      else{
+
+      }
+    
+          
     })
     console.log(req.body)
+      
+  })
+
+  router.get('/OrderSuccess',(req,res)=>{
+    res.render('user/OrderSuccess')
   })
   
-
-
-
-
-
- 
 
 
 

@@ -28,7 +28,7 @@
      </label>
      <br>
     
-    <button style="margin-top: -30px;" class="btn btn-primary mt-4 " type="submit">Checkout</button>
+    <button  style="margin-top: -30px;" class="btn btn-primary mt-4 " type="submit">Checkout</button>
   
     <p style="font-weight: bold;margin-top: 10px;">
         Enjoy The Secure Payment
@@ -41,6 +41,8 @@
 </div>
 
 <script>
+
+
    $("#checkout-form").submit((e)=>{
     e.preventDefault()
     $.ajax({
@@ -49,6 +51,11 @@
       data:$('#checkout-form').serialize(),
       success:(responce)=>{
         alert(responce)
+        if(responce.status)=>{
+          location.href='/OrderSuccess'
+        }else{
+          
+        }
       }
     })
    })

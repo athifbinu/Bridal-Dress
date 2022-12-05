@@ -238,39 +238,42 @@ module.exports={
     })
    },
 
-   placeorder:(order,products,totel)=>{
-          return new Promise((resolve,riject)=>{
-              console.log(order,products,totel)
-              let status=order ['payment-method']==='COD'?'placed':'pending'
-              let orderObj={
-                deliveryDetailes:{
-                    mobile:order.mobile,
-                    adress:order.adress,
-                    pincode:order.pincode
-                },
+   placeorder:(order)=>{
 
-                userId:ObjectId(order,userId),
-                paymentMethod:order['payment-method'],
-                products:products,
-                
-                status:status
-              }
+    return new Promise((resolve,reject)=>{
+        console.log(order,products,total)
+        let status=order['payment-Method']==='COD'?'placed':'pending'
+        let orderObject={
+             deliveryDetails:{
+                mobile:order.mobile,
+                adress:order.adress,
+                pincode:order.pincode
+             },
+             userId:ObjectId(order.userId),
+             paymentMethod:order['payment-Method'],
+             products:products,
+             totalAmount:total,
+             status:status,
 
-              db.get().collection(collection.CART_COLLECTION).insertOne(orderObj).then((response)=>{
-                resolve()
-              })
+             
+        }
+        .db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((responce)=>{
+            db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(order.userId)})
+            resolve()
+        })
 
-
-       
-            })
+    })
+          
    },
-   getproductlist:(userId)=>{
-          return new Promise(async(resolve,riject)=>{
-            let products=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId )})
-            console.log(cart)
-            resolve(cart.products)
-          })
+   getCartProductList(userId){
+            return new Promise(async(resolve,riject)=>{
+                let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
+                console.log(cart) 
+                resolve(cart.products)
+               
+            })
    }
+
 
    
 
