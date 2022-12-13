@@ -137,7 +137,7 @@ router.get('/add-to-cart/:id',(req,res)=>{
   })
 
 
-
+        
   router.get('/place-order',verifyloging,async(req,res)=>{
      let total=await  userHelpers.getTotalAmount(req.session.user._id)
      console.log(total)
@@ -147,14 +147,15 @@ router.get('/add-to-cart/:id',(req,res)=>{
 
   
   router.post('/place-order',async(req,res)=>{
-    
+       console.log(req.body)
     let products=await userHelpers.getCartProductList(req.body.userId)
     let totalPrice=await userHelpers.getTotalAmount(req.body.userId)
 
     userHelpers.placeorder(req.body,products,totalPrice).then((responce)=>{
 
-      if(request.body['payment-Method']=='COD'){
+      if(req.body['payment-Method']=='COD'){
         res.json({status:true})
+
       }
       //razorpay
       else{
