@@ -120,6 +120,7 @@ router.get('/add-to-cart/:id',(req,res)=>{
   // res.json({status:true})
   res('/Productbanner')
   })
+  
  
   })
 
@@ -135,7 +136,10 @@ router.get('/add-to-cart/:id',(req,res)=>{
         
       })
   })
+  
 
+
+  //place order
 
         
   router.get('/place-order',verifyloging,async(req,res)=>{
@@ -146,32 +150,16 @@ router.get('/add-to-cart/:id',(req,res)=>{
   })
 
   
-  router.post('/place-order',async(req,res)=>{
-       console.log(req.body)
+   router.post('/place-order',async(req,res)=>{
     let products=await userHelpers.getCartProductList(req.body.userId)
-    let totalPrice=await userHelpers.getTotalAmount(req.body.userId)
-
-    userHelpers.placeorder(req.body,products,totalPrice).then((responce)=>{
-
-      if(req.body['payment-Method']=='COD'){
+    let total=await userHelpers.getTotalAmount(req.body.userId)
+    userHelpers.placeorder(req.body,products,total).then((response)=>{
         res.json({status:true})
-
-      }
-      //razorpay
-      else{
-
-      }
-    
-          
     })
     console.log(req.body)
-      
-  })
-
-  router.get('/OrderSuccess',(req,res)=>{
-    res.render('user/OrderSuccess')
-  })
+   })
   
+   
 
 
 

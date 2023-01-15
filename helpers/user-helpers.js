@@ -238,7 +238,10 @@ module.exports={
     })
    },
 
-   placeorder:(order)=>{
+
+   //place order
+
+   placeorder:(order,products,total)=>{
 
     return new Promise((resolve,reject)=>{
         console.log(order,products,total)
@@ -254,11 +257,12 @@ module.exports={
              products:products,
              totalAmount:total,
              status:status,
+             date:new date()
              
-
+     
              
         }
-        .db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((responce)=>{
+        .db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
             db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(order.userId)})
             resolve()
         })
@@ -269,7 +273,7 @@ module.exports={
    getCartProductList(userId){
             return new Promise(async(resolve,riject)=>{
                 let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
-                console.log(cart) 
+                console.log(cart)
                 resolve(cart.products)
                
             })
