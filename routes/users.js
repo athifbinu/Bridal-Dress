@@ -7,6 +7,7 @@ const userHelpers=require('../helpers/user-helpers');
 var router = express.Router();
 
 
+
 //user checking
 
 const verifyloging=(req,res,next)=>{
