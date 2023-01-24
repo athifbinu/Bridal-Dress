@@ -53,6 +53,7 @@ module.exports={
 
     }, 
 
+    
          //cart section
 
          addToCart:(proId,userId)=>{
@@ -262,9 +263,10 @@ module.exports={
      
              
         }
-        .db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
+        db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
             db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(order.userId)})
-            resolve()
+            console.log("order id",responce.ops[0]._id)
+            resolve(responce.ops[0]._id)
         })
 
     })
@@ -272,6 +274,7 @@ module.exports={
    },
    getCartProductList(userId){
             return new Promise(async(resolve,riject)=>{
+                console.log(userId)
                 let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
                 console.log(cart)
                 resolve(cart.products)

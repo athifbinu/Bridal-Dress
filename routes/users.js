@@ -1,4 +1,4 @@
-'use strict';
+
 const { response } = require('express');
 var express = require('express');
 const { request } = require('../app');
@@ -151,12 +151,20 @@ router.get('/add-to-cart/:id',(req,res)=>{
 
   
    router.post('/place-order',async(req,res)=>{
+    console.log(req.body)
     let products=await userHelpers.getCartProductList(req.body.userId)
     let total=await userHelpers.getTotalAmount(req.body.userId)
     userHelpers.placeorder(req.body,products,total).then((response)=>{
-        res.json({status:true})
-    })
-    console.log(req.body)
+
+      if(req.body['payement-method']==='COD')
+        res.json({codeSuccess:true})
+      })
+    
+   })
+
+
+   router.get('/OrderSuccess',(req,res)=>{
+    res.render('user/OrderSuccess',{user:req.body.session.user})
    })
   
    
