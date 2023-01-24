@@ -156,18 +156,29 @@ router.get('/add-to-cart/:id',(req,res)=>{
     let total=await userHelpers.getTotalAmount(req.body.userId)
     userHelpers.placeorder(req.body,products,total).then((response)=>{
 
-      if(req.body['payement-method']==='COD')
-        res.json({codeSuccess:true})
-      })
-    
+        res.json({status:true})
+    })
+
    })
 
 
    router.get('/OrderSuccess',(req,res)=>{
     res.render('user/OrderSuccess',{user:req.body.session.user})
    })
-  
-   
+
+   router.get('/Orders',async(req,res)=>{
+    let orders=await userHelpers.getUserOrder(req.session.user._id)
+    res.render('user/Orders',{user:req.session.user.orders})
+     console.log(orders)
+   })  
+
+
+   router.get('/view-ordered-products/:id',async(res,res)=>{
+      let products=await userHelpers.getOrderProducts(req.params._id)
+      res.render('user/view-ordered-products',{user:res.session.user.products})
+      console.log(products)
+   })
+
 
 
 
