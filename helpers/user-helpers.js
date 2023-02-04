@@ -11,6 +11,7 @@ var ObjectId=require('mongodb').ObjectId
 
 
 module.exports={
+
     doSignup:(userData)=>{
         console.log(userData);
         return new Promise(async(resolve,reject)=>{
@@ -24,6 +25,7 @@ module.exports={
     },
 
     doLoging:(userData)=>{
+
         console.log(userData)
         return new Promise(async(resolve,reject)=>{
             let logingStatus=false
@@ -239,6 +241,8 @@ module.exports={
    },
 
 
+
+
    //place order
 
    placeorder:(order,products,total)=>{
@@ -262,8 +266,10 @@ module.exports={
      
              
         }
-        .db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
-            db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(order.userId)})
+    
+          db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
+            console.log("order object",orderObject)
+            db.get().collection(collection.CART_COLLECTION).removeOne({user:ObjectId(order.userId)})
             resolve()
         })
 
@@ -280,7 +286,6 @@ module.exports={
    }
 
 
-   
 
  }
 

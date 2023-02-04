@@ -45,12 +45,13 @@
 <script>
 
 
+
   $("#checkout-form").submit((e)=>{
     e.preventDefault()
     $.ajax({
       url:'/place-order',
       method:'post',
-      data:$('#checkout-form').serialize(),
+      data:$('#checkout-form').serialize,
       success:(responce)=>{
         alert(responce)
         if(responce.status){

@@ -59,6 +59,7 @@ router.get('/loging',function(req,res){
 
 })
 
+
 router.get('/signup',function(req,res){
   res.render('user/signup')
 })
@@ -156,6 +157,7 @@ router.get('/add-to-cart/:id',(req,res)=>{
     let total=await userHelpers.getTotalAmount(req.body.userId)
     userHelpers.placeorder(req.body,products,total).then((response)=>{
         res.json({status:true})
+        
     })
     console.log(req.body)
    })

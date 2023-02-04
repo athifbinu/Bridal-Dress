@@ -18,6 +18,7 @@ const { Cookie } = require("express-session");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
 
+
 app.engine(
   "hbs",
   hbs({
@@ -37,7 +38,7 @@ app.use(fileupload())
 app.use(session({secret:"key",cookie:{maxAge:60000}}))    //express session difine is automatic logout user
 db.connect((err)=>{          //databse Connection
    if(err) console.log("connection errr"+err)
-   else console.log("Database Connected Port 27017")
+   else console.log("Database Connected Port 3000")
 });
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
