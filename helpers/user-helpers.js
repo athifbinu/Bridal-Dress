@@ -11,6 +11,7 @@ var ObjectId=require('mongodb').ObjectId
 
 
 module.exports={
+
     doSignup:(userData)=>{
         console.log(userData);
         return new Promise(async(resolve,reject)=>{
@@ -24,6 +25,7 @@ module.exports={
     },
 
     doLoging:(userData)=>{
+
         console.log(userData)
         return new Promise(async(resolve,reject)=>{
             let logingStatus=false
@@ -152,7 +154,11 @@ module.exports={
                 let count=0
                 let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
                 if(cart){
-                    count=cart.products.length
+                    var sumQuantity =0;
+                    for (let i=0;i<cart.products.length;i++) {
+                        sumQuantity += cart.products[i].quantity;
+                    }
+                    count =sumQuantity;
                 }
                 resolve(count)
             })
@@ -192,6 +198,28 @@ module.exports={
        })
 
    },
+
+
+  
+
+          
+
+   removeCartProduct: (details) => {
+       return new Promise((resolve, reject) => {
+         db.get()
+           .collection(collections.CART_COLLECTION)
+           .updateOne(
+             { _id: objectId(details.cart) },
+             {
+               $pull: { products: { item: objectId(details.product) } },
+             }
+           )
+           .then(() => {
+             resolve({ status: true });
+           });
+       });
+     },
+
 
     getTotalAmount:(userId)=>{
       
@@ -240,6 +268,9 @@ module.exports={
    },
 
 
+
+
+
    //place order
 
    placeorder:(order,products,total)=>{
@@ -263,13 +294,13 @@ module.exports={
      
              
         }
-        db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
-            db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(order.userId)})
-            console.log("order id",responce.ops[0]._id)
-            resolve(responce.ops[0]._id)
+        .db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
+            db.get().collection(collection.CART_COLLECTION).removeOne({user:ObjectId(order.userId)})
+            resolve()
         })
 
     })
+    
           
    },
    getCartProductList(userId){
@@ -278,6 +309,10 @@ module.exports={
                 let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
                 console.log(cart)
                 resolve(cart.products)
+
+                // resolve(cart[0].products)
+            
+                 
                
             })
    },

@@ -59,6 +59,7 @@ router.get('/loging',function(req,res){
 
 })
 
+
 router.get('/signup',function(req,res){
   res.render('user/signup')
 })
@@ -133,9 +134,16 @@ router.get('/add-to-cart/:id',(req,res)=>{
         //req.body= is data from cart
         response.total=await userHelpers.getTotalAmount(req.body.user)
         res.json(response)
+
         
         
       })
+  })
+
+  router.get('/remove-cart-product',(req,res,next)=>{
+    userHelpers.removeCartProduct(req.body).then((response) =>{
+      res.json(response)
+    })
   })
   
 
@@ -144,20 +152,33 @@ router.get('/add-to-cart/:id',(req,res)=>{
 
         
   router.get('/place-order',verifyloging,async(req,res)=>{
-     let total=await  userHelpers.getTotalAmount(req.session.user._id)
+    let user =req.session.user;
+    let userId =req.session.user._id;
+    let CartCount=await userHelpers.getCartCount(userId);
+     let total=await  userHelpers.getTotalAmount(userId)
      console.log(total)
-    res.render('user/place-order',{total,user:req.session.user})
+    res.render('user/place-order',{admin:false,user,CartCount,total})
     
   })
 
   
    router.post('/place-order',async(req,res)=>{
     console.log(req.body)
+    let user = req.body.user
     let products=await userHelpers.getCartProductList(req.body.userId)
     let total=await userHelpers.getTotalAmount(req.body.userId)
-    userHelpers.placeorder(req.body,products,total).then((response)=>{
 
-        res.json({status:true})
+    userHelpers.placeorder(req.body,products,total,user)
+    .then((orderId)=>{
+        if (req.body["'payment-Method"]=== "COD") {
+               res.json({codeSuccess:true})
+                 // res.json({status:true})
+        }else {
+               //razorpay payment method
+               res.json(response)
+        }
+    
+        
     })
 
    })
