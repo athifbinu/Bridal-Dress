@@ -174,7 +174,7 @@ router.get('/add-to-cart/:id',(req,res)=>{
    })  
 
 
-   router.get('/view-ordered-products/:id',async(res,res)=>{
+   router.get('/view-ordered-products/:id',async(req,res)=>{
       let products=await userHelpers.getOrderProducts(req.params._id)
       res.render('user/view-ordered-products',{user:res.session.user.products})
       console.log(products)
