@@ -6,6 +6,7 @@ const { resolve, reject } = require('promise')
 var Promise = require('promise');
 const { response } = require('../app');
 const { ObjectID } = require('mongodb');
+const async = require('hbs/lib/async');
 // const { Promise } = require('mongodb');
 var ObjectId=require('mongodb').ObjectId
 
@@ -111,7 +112,6 @@ module.exports={
 
       
           getCartProducts:(userId)=>{
-            console.log("Cartproducts:",userId)
             return new Promise(async(resolve,riject)=>{
                 let cartItems=await db.get().collection(collection.CART_COLLECTION).aggregate([
                     {
@@ -261,22 +261,13 @@ module.exports={
             }
 
         ]).toArray()
-        resolve(total[0].total)
-        console.log(total[0].total)
-        
+        resolve(total[0].total)        
     })
    },
 
-
-
-
-
    //place order
-
    placeorder:(order,products,total)=>{
-
-    return new Promise((resolve,reject)=>{
-        console.log(order,products,total)
+    return new Promise(async(resolve,reject)=>{
         let status=order['payment-Method']==='COD'?'placed':'pending'
         let orderObject={
              deliveryDetails:{
@@ -289,30 +280,21 @@ module.exports={
              products:products,
              totalAmount:total,
              status:status,
-             date:new date()
-             
-     
-             
+             date:new Date()
         }
-        .db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then((responce)=>{
-            db.get().collection(collection.CART_COLLECTION).removeOne({user:ObjectId(order.userId)})
-            resolve()
+        await db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObject).then(async(responce)=>{
+            await db.get().collection(collection.CART_COLLECTION).deleteOne({user:ObjectId(order.userId)})
+            resolve({status:true})
         })
 
     })
     
-          
    },
+
    getCartProductList(userId){
             return new Promise(async(resolve,riject)=>{
-                console.log(userId)
                 let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
-                console.log("cart",cart)
-                resolve(cart.products)
-
-                // resolve(cart[0].products)
-            
-                 
+                resolve(cart.products)            
                
             })
    },
@@ -320,10 +302,8 @@ module.exports={
 
    getUserOrder(userId){
     return new Promise(async(resolve,riject)=>{
-        console.log(userId)
         let orders=await db.get().collection(collection.ORDER_COLLECTION)
         .find({userId:ObjectId(userId)}).toArray()
-        console.log(orders)
         resolve(orders)
     })
    },
@@ -364,7 +344,6 @@ module.exports={
           },
         ])
         .toArray();
-        console.log(orderItems)
       resolve(orderItems);
     });
 },

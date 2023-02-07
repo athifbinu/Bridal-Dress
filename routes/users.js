@@ -163,20 +163,17 @@ router.get('/add-to-cart/:id',(req,res)=>{
 
   
    router.post('/place-order',async(req,res)=>{
-    console.log('dat',req.body)
-    let user = req.body.user
-    console.log(req.body)
+    let user = req.body.user;
     let products=await userHelpers.getCartProductList(req.body.userId)
     let total=await userHelpers.getTotalAmount(req.body.userId)
-
     userHelpers.placeorder(req.body,products,total,user)
     .then((orderId)=>{
+      console.log('ping');
         if (req.body["'payment-Method"]=== "COD") {
-               res.json({codeSuccess:true})
-                 // res.json({status:true})
+            res.json({status:true})
         }else {
-               //razorpay payment method
-               res.json(response)
+          //razorpay payment method
+          res.json({status:true})
         }
     
         
