@@ -45,11 +45,12 @@
 <script>
 
   $("#checkout-form").submit((e)=>{
-    e.preventDefault()
+  console.log($('#checkout-form').serialize());
+    e.preventDefault();
     $.ajax({
       url:'/place-order',
+      data:{data:"amshen"},
       method:'post',
-      data:$('#checkout-form').serialize,
       success:(responce)=>{
         alert(responce)
         if(responce.status){

@@ -157,14 +157,15 @@ router.get('/add-to-cart/:id',(req,res)=>{
     let CartCount=await userHelpers.getCartCount(userId);
      let total=await  userHelpers.getTotalAmount(userId)
      console.log(total)
-    res.render('user/place-order',{admin:false,user,CartCount,total})
+    res.render('user/place-order',{admin:false,user,CartCount,total});
     
   })
 
   
    router.post('/place-order',async(req,res)=>{
-    console.log(req.body)
+    console.log('dat',req.body)
     let user = req.body.user
+    console.log(req.body)
     let products=await userHelpers.getCartProductList(req.body.userId)
     let total=await userHelpers.getTotalAmount(req.body.userId)
 

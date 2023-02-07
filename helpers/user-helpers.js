@@ -307,7 +307,7 @@ module.exports={
             return new Promise(async(resolve,riject)=>{
                 console.log(userId)
                 let cart=await db.get().collection(collection.CART_COLLECTION).findOne({user:ObjectId(userId)})
-                console.log(cart)
+                console.log("cart",cart)
                 resolve(cart.products)
 
                 // resolve(cart[0].products)
