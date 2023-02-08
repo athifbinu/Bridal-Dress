@@ -49,10 +49,9 @@
     e.preventDefault();
     $.ajax({
       url:'/place-order',
-      data:{data:"amshen"},
+      data:$('#checkout-form').serialize(),
       method:'post',
       success:(responce)=>{
-        alert(responce)
         if(responce.status){
           location.href='/OrderSuccess'
         }
