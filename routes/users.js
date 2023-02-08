@@ -168,6 +168,7 @@ router.get('/add-to-cart/:id',(req,res)=>{
     console.log(req.body)
     let products=await userHelpers.getCartProductList(req.body.userId)
     let total=await userHelpers.getTotalAmount(req.body.userId)
+    
 
     userHelpers.placeorder(req.body,products,total,user)
     .then((orderId)=>{
