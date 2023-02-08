@@ -276,6 +276,7 @@ module.exports={
                 pincode:order.pincode
              },
              userId:ObjectId(order.userId),
+            
              paymentMethod:order['payment-Method'],
              products:products,
              totalAmount:total,
@@ -304,6 +305,7 @@ module.exports={
     return new Promise(async(resolve,riject)=>{
         let orders=await db.get().collection(collection.ORDER_COLLECTION)
         .find({userId:ObjectId(userId)}).toArray()
+        console.log(orders)
         resolve(orders)
     })
    },

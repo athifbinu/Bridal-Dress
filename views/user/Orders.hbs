@@ -19,17 +19,17 @@
 
                 <tbody>
                     {{#each orders}}
-                    <tr class="align-middle">
+                    <tr class="align-middle text-white">
                         <td>{{this.date}}</td>
-                        <td>{{this.deliveryDetailes.adress}}</td>
-                        <td>{{this.deliveryDetailes.pincode}}</td>
-                        <td>{{this.deliveryDetailes.mobile}}</td>
+                        <td>{{this.deliveryDetails.adress}}</td>
+                        <td>{{this.deliveryDetails.pincode}}</td>
+                        <td>{{this.deliveryDetails.mobile}}</td>
                         <td>{{this.totalAmount}}</td>
                         <td>{{this.paymentMethod}}</td>
                         <td>{{this.status}}</td>
          
                         <td>
-                            <a href="view-ordered-products/{{this._id}}" class="btn btn-primary">View Product</a>
+                            <a href="/view-ordered-products/{{this._id}}" class="btn btn-primary">View Product</a>
                         </td>
                     </tr>
                     {{/each}}

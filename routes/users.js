@@ -161,48 +161,71 @@ router.get('/add-to-cart/:id',(req,res)=>{
     
   })
 
+
   
+
    router.post('/place-order',async(req,res)=>{
     let user = req.body.user;
     let products=await userHelpers.getCartProductList(req.body.userId)
     let total=await userHelpers.getTotalAmount(req.body.userId)
-<<<<<<< HEAD
-    
 
-=======
->>>>>>> ec8912eb219748f8a140444861673f68718c3724
-    userHelpers.placeorder(req.body,products,total,user)
+
+    userHelpers
+    .placeorder(req.body,products,total,user)
     .then((orderId)=>{
-      console.log('ping');
-        if (req.body["'payment-Method"]=== "COD") {
+        if (req.body["payment-Method"]=== "COD") {
             res.json({status:true})
         }else {
           //razorpay payment method
           res.json({status:true})
         }
     
-        
+        console.log(req.body)
     })
 
+
+  })
+    
+
+
+
+
+   router.get('/OrderSuccess',verifyloging,async(req,res)=>{
+    let user =req.session.user;
+    let userId=req.session.user._id;
+    let CartCount =await userHelpers.getCartCount(userId)
+    res.render('user/OrderSuccess',{admin:false,user,CartCount})
    })
 
-
-   router.get('/OrderSuccess',(req,res)=>{
-    res.render('user/OrderSuccess',{user:req.body.session.user})
-   })
-
-   router.get('/Orders',async(req,res)=>{
-    let orders=await userHelpers.getUserOrder(req.session.user._id)
-    res.render('user/Orders',{user:req.session.user.orders})
+   router.get('/Orders',verifyloging,async  (req,res)=>{
+    let user =req.session.user;
+    let userId =req.session.user._id;
+    let cartCount =await userHelpers.getCartCount(userId)
+    let orders=await userHelpers.getUserOrder(userId)
+    res.render('user/Orders',{admin:false ,user,cartCount,orders})
      console.log(orders)
    })  
 
 
-   router.get('/view-ordered-products/:id',async(req,res)=>{
-      let products=await userHelpers.getOrderProducts(req.params._id)
-      res.render('user/view-ordered-products',{user:res.session.user.products})
-      console.log(products)
+
+   router.get('/view-ordered-products/:id'
+   ,verifyloging,
+   async(req,res)=>{
+    let user =req.session.user;
+    let userId =req.session.user._id;
+    let cartCount =await userHelpers.getCartCount(userId)
+    let orderId =req.session.id;
+      let products=await userHelpers.getOrderProducts(orderId)
+      res.render('user/order-products',{
+        admin:false,
+        user,
+        cartCount,
+        products,
+      })
    })
+
+
+   
 
 
 

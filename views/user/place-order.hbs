@@ -3,7 +3,8 @@
   <div class="child-1">
     <h1 style="text-align: center;">Enter Your Shoping <br> Detailes</h1>
             <label for="">Adress</label>
-           <input type="text" name="address" id="address" class="form-control">
+
+                        <input type="text" name="adress" id="adress" class="form-control">
                         <label for="">Pincode</label>
                         <input type="text" name="pincode" id="pincode" class="form-control">
                         <label for="">Mobile number</label>
@@ -54,6 +55,8 @@
       success:(responce)=>{
         if(responce.status){
           location.href='/OrderSuccess'
+        }else {
+          //razorpay payment res
         }
         
       }

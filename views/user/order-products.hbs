@@ -1,0 +1,34 @@
+
+<section>
+    <div class="container mt-2">
+        <div class="row mt-5">
+            {{#each products}}
+            <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 mb-5">
+                <div class="card mx-auto" style="width: 16rem;">
+                    <img src="/images/product-images/{{this.product._id}}.png" class="card-img-top" alt="phone-image"
+                        style="height: 17rem;">
+                    <hr class="text-secondary">
+                    <div class="card-body pb-1">
+                        <div class="" style="display: flex; justify-content: end;">
+                            <div class="" style="margin-right: auto;">
+                                <h5 class="card-title">{{this.product.Name}}</h5>
+                            </div>
+                            <div class="">
+                                <p class="card-text"><small>₹{{this.product.Price}}</small></p>
+                            </div>
+                        </div>
+                        <div class="" style="margin-right: auto;">
+                            <h6 class="card-title">Quantity: <span class="badge bg-primary">{{this.quantity}}</span></h6>
+                        </div>
+                        <p class="card-text">{{this.product.Description}}</p>
+                        <div class="row">
+                            <button onclick="cancelProduct('{{this._id}}')" class="btn btn-danger">
+                                Cancel Product</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</section>
