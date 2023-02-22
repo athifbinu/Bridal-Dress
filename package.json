@@ -21,9 +21,11 @@
     "mongodb": "^4.13.0",
     "morgan": "~1.9.1",
     "ndb": "^0.2.4",
+    "node-sass": "^8.0.0",
     "nodemon": "^2.0.20",
     "objectid": "^2.3.0",
-    "promise": "^8.3.0"
+    "promise": "^8.3.0",
+    "sweetalert2": "^11.7.2"
   },
   "main": "app.js",
   "repository": {

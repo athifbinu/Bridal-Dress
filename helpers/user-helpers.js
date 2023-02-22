@@ -80,7 +80,6 @@ module.exports={
                             resolve()
                          })
                     }else{
-    
                  
                       db.get(collection.CART_COLLECTION)
                     db.get().collection(collection.CART_COLLECTION)

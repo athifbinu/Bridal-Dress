@@ -33,7 +33,7 @@
                         
 
 
-                 <button class="btn btn-danger" onclick="removeCartProduct('{{this._id}}','{{this.product._id}}','{{this.quantity}}')">Remove</button>
+                      <a href="/user/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are You Want to Delete {{this.name}}?')">Delete</a>
 
 
                      </td>
@@ -92,32 +92,7 @@
 
 
 
-function removeCartProduct(cartId, productId, quantity) {
-        $.ajax({
-            url: '/remove-cart-product',
-            data: {
-                cart: cartId,
-                product: productId
-            },
-            method: 'post',
-            success: (response) => {
-                if (response.status) {
-                    alert("Your Item has been removed.");
-                    let cartCount = $("#cart-count").html();
-                    cartCount = parseInt(cartCount) - parseInt(quantity);
-                    $("#cart-count").html(cartCount);
-                    if (cartCount > 1) {
-                        $("#table").load(" #table");
-                        $("#total").load(" #total");
-                    } else {
-                        location.reload()
-                    }
-                } else {
-                    alert("Remove Error")
-                }
-            }
-        })
-    }
+
 
 
 

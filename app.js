@@ -34,6 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use('/style',express.static(path.join(__dirname, "public/stylesheet")));
+app.use('/Common',express.static(path.join(__dirname, "public/stylesheet")));
 app.use(fileupload())
 app.use(session({secret:"key",cookie:{maxAge:60000}}))    //express session difine is automatic logout user
 db.connect((err)=>{          //databse Connection

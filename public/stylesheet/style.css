@@ -126,6 +126,11 @@ body
     width: 265px;
     height: 346px;
 }
+.shop-btn{
+    background-color:bisque;
+    color: #000;
+    border-radius: 10px ;
+}
 .logo-section {
     text-align: center;
     color: #fff;
@@ -133,6 +138,8 @@ body
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     margin-top: 60px;
 }
+
+
 .about-section {
     text-align: center;
     color: #ffff;
@@ -149,7 +156,7 @@ body
     height: 80px;
     display: flex;
     gap: 180px;
-    margin-left: 400px;
+    margin-left: 300px;
     margin-top: 30px;
 }
 
@@ -157,7 +164,7 @@ body
     color: #fff;
     display: flex;
     gap: 150px;
-    margin-left: 400px;
+    margin-left: 300px;
 }
 .last-banner {
     text-align: center;

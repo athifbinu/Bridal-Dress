@@ -7,7 +7,6 @@ const userHelpers=require('../helpers/user-helpers');
 var router = express.Router();
 
 
-
 //user checking
 
 const verifyloging=(req,res,next)=>{
@@ -96,6 +95,18 @@ router.get('/logout',(req,res)=>{
   req.session.destroy()
   res.redirect('/')
 
+
+})
+
+ //delete
+
+router.get('/delete-product/:id',async(req,res)=>{
+
+   let proId =req.params.id
+   console.log(proId)
+   productHelpers.deleteProduct(proId).then((responce)=>{
+       res.redirect('/Productbanner')
+   })
 
 })
 

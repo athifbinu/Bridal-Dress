@@ -3,6 +3,7 @@ var db=require('../DATABASE/connection')
 var collection=require('../DATABASE/collections')
 // const { ObjectID, ObjectId } = require('bson')
 const { response } = require('../app')
+const { resolve } = require('promise')
 const ObjectId=require('mongodb').ObjectId
 //product related funtions
 module.exports={
@@ -23,6 +24,7 @@ module.exports={
             resolve(products)
         })
     },
+    //admin side delete
     deleteProducts:(proId)=>{
         return new Promise((resolve,riject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id:ObjectId(proId)}).then((response)=>{
@@ -34,7 +36,18 @@ module.exports={
         return new Promise ((resolve,riject)=>{
             db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:ObjectId(proId)}).then((product)=>{
                 resolve(product)
+            
                 
+            })
+        })
+    },
+
+      //user side delete
+    deleteProduct:(proId)=>{
+        return new Promise((resolve,riject)=>{
+            db.get().collection(collection.PRODUCT_COLLECTION).deleteOne({_id:ObjectId(proId)}).then((response)=>{
+                resolve(response)
+                console.log("product deleted")
             })
         })
     },
