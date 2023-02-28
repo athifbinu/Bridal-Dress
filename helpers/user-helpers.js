@@ -198,27 +198,24 @@ module.exports={
 
    },
 
+   //cart product delete
 
-  
 
-          
-
-   removeCartProduct: (details) => {
-       return new Promise((resolve, reject) => {
-         db.get()
-           .collection(collections.CART_COLLECTION)
-           .updateOne(
-             { _id: objectId(details.cart) },
-             {
-               $pull: { products: { item: objectId(details.product) } },
-             }
-           )
-           .then(() => {
-             resolve({ status: true });
-           });
-       });
-     },
-
+  removeCartProduct: (details) => {
+    return new Promise((resolve, reject) => {
+      db.get()
+        .collection(collections.CART_COLLECTION)
+        .updateOne(
+          { _id: objectId(details.cart) },
+          {
+            $pull: { product: { item: objectId(details.product) } },
+          }
+        )
+        .then(() => {
+          resolve({ status: true });
+        });
+    });
+  },
 
     getTotalAmount:(userId)=>{
       
@@ -267,7 +264,7 @@ module.exports={
    //place order
    placeorder:(order,products,total)=>{
     return new Promise(async(resolve,reject)=>{
-        let status=order['payment-Method']==='COD'?'placed':'pending'
+        let status=order['payment-Method']==='COD'?'placed':'Order Plased'
         let orderObject={
              deliveryDetails:{
                 mobile:order.mobile,
@@ -290,6 +287,7 @@ module.exports={
     })
     
    },
+   
 
    getCartProductList(userId){
             return new Promise(async(resolve,riject)=>{
@@ -304,7 +302,7 @@ module.exports={
     return new Promise(async(resolve,riject)=>{
         let orders=await db.get().collection(collection.ORDER_COLLECTION)
         .find({userId:ObjectId(userId)}).toArray()
-        console.log(orders)
+    
         resolve(orders)
     })
    },

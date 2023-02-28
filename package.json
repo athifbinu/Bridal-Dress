@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon start ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -25,7 +25,7 @@
     "nodemon": "^2.0.20",
     "objectid": "^2.3.0",
     "promise": "^8.3.0",
-    "sweetalert2": "^11.7.2"
+    "sweetalert2": "^11.4.8"
   },
   "main": "app.js",
   "repository": {

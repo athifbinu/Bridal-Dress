@@ -51,10 +51,7 @@ body
     display: block;
     
 }
-.navbar-links li:hover
-{
-    background-color:#555;
-}
+
 .bridal-collections {
     font-family: revert;
     font-weight: bold;

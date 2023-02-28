@@ -31,10 +31,9 @@
                      </td>
                      <td>
                         
-
-
-                      <a href="/user/delete-product/{{this._id}}" class="btn btn-danger" onclick="return confirm('Are You Want to Delete {{this.name}}?')">Delete</a>
-
+                       <button class="btn btn-danger"
+                        onclick="removeCartProduct('{{this._id}}','{{this.product._id}}','{{this.quantity}}')" >Delete</button>
+                     
 
                      </td>
                 </tr>
@@ -46,7 +45,7 @@
      
        <h3 style="text-align:end;color:#fff;margin-right:170px;">Totel:Rs  <span id="total">{{totalValue}}</span></h3>
        
-       <a   style="margin-left: 670px;font-weight: bold;" href="/place-order" class="btn btn-success mt-3">Place Order</a>
+       <a   style="margin-left: 810px;font-weight: bold;" href="/place-order" class="btn btn-success mt-3">Place Order</a>
     
 
     </div>
@@ -84,6 +83,33 @@
                     document.getElementById(proId).innerHTML=quantity+count
                     document.getElementById('total').innerHTML=responce.total
                 
+                }
+            }
+        })
+    }
+
+       function removeCartProduct(cartId, proId, quantity) {
+        $.ajax({
+            url: '/remove-cart-product',
+            data: {
+                cart: cartId,
+                product: proId
+            },
+            method: 'post',
+            success: (response) => {
+                if (response.status) {
+                    alert("Your Item has been removed.");
+                    let cartCount = $("#cart-count").html();
+                    cartCount = parseInt(cartCount) - parseInt(quantity);
+                    $("#cart-count").html(cartCount);
+                    if (cartCount > 1) {
+                        $("#table").load(" #table");
+                        $("#total").load(" #total");
+                    } else {
+                        location.reload()
+                    }
+                } else {
+                    alert("Remove Error")
                 }
             }
         })

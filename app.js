@@ -12,7 +12,7 @@ var fileupload=require("express-fileupload");
 var session = require('express-session'); //express session
 var db=require('./DATABASE/connection');
 const { Cookie } = require("express-session");
-
+const colours =require('colors')
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -39,8 +39,10 @@ app.use(fileupload())
 app.use(session({secret:"key",cookie:{maxAge:60000}}))    //express session difine is automatic logout user
 db.connect((err)=>{          //databse Connection
    if(err) console.log("connection errr"+err)
-   else console.log("Database Connected Port 3000")
+   else console.log("Database Connected Port 3000".bgGreen.bold)
 });
+
+
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
 
@@ -61,3 +63,4 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+

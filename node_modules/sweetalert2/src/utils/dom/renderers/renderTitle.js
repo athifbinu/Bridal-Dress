@@ -1,9 +1,5 @@
 import * as dom from '../../dom/index.js'
 
-/**
- * @param {SweetAlert2} instance
- * @param {SweetAlertOptions} params
- */
 export const renderTitle = (instance, params) => {
   const title = dom.getTitle()
 

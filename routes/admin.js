@@ -38,6 +38,7 @@ router.post('/add-product',(req,res)=>{
  })
 
 })
+//delete product
 
 router.get('/delete-product/:id',(req,res)=>{
        let proId=req.params.id
@@ -47,6 +48,9 @@ router.get('/delete-product/:id',(req,res)=>{
        })
        
 })
+
+
+ //edit product
 
 router.get('/edit-product/:id',async(req,res)=>{
   let product=await productHelpers.getProductDetails(req.params.id)
@@ -63,7 +67,7 @@ router.post('/edit-product/:id',(req,res)=>{
       console.log(req.files.Image)
       let image=req.files.Image
       image.mv('./public/product.images/'+id+'.jpg')
-      console.log(image)
+      console.log("image"+image)
   
     }
 

@@ -37,7 +37,7 @@ module.exports={
             db.get().collection(collection.PRODUCT_COLLECTION).findOne({_id:ObjectId(proId)}).then((product)=>{
                 resolve(product)
             
-                
+        
             })
         })
     },

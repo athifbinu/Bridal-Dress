@@ -23,12 +23,9 @@
         </a>
         <div class="navbar-links">
             <ul>
-                <li><a href="#Home">Home</a></li>
-                <li><a href="#founders">About Us</a></li>
-                {{#if user}}
-                <li><a href="#Gallery">Shop</a></li>
-                {{/if}}
-                <li><a href="#Location">Contact</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="#aboutUs">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
             
                 <a href="/cart" style="text-decoration:none ;">
                  <img class="cart-img" src="images/cart.png"   >
@@ -38,84 +35,29 @@
 
                  <a href="/loging" style="text-decoration:none;">
                   <img class="cart-img" src="images/loging.png" alt="">
-                 <p style="color:#fff;margin-left:20px;margin-left:50px;margin-top: 10px;" >Loging</p>
+                 <p style="color:#fff;margin-left:20px;margin-left:50px;margin-top: 10px;" >
+                  {{#if user}}
+                  Logout
+                  {{else }}
+                  Loging
+                  {{/if}}
+                  
+                  </p>
                  </a>
 
-                
             </ul>
-
-
-
-
-          {{!-- dropdown --}}
-       
     
-                   <div class="drop-down" style="position: absolute;">
-          <img  class="profile" id="profiles"  src="images/profile.jpg" alt="">
-          
-            <div id="SubLink" class="sub-menu-link">
-             {{#if user}}
-                <a style="color: #fff;text-decoration: none;" href="/logout">Logout</a >
-              {{else}}
-                <a style="color: #fff;text-decoration: none;" href="/loging">Loging</a>
-                {{/if}}
-
-            </div>
-
-      </div> 
+ 
         </div>
     </div>   
 
 
-    <script>
-           const profiles=document.getElementById('profiles')  
-           const subLink=document.getElementById('SubLink')      
-             
-             profiles.addEventListener("click",function handleClick(){
-
-                if(subLink.style.display==='none'){
-                    subLink.style.display='block'
-
-                         profiles.textContent = 'Hide div';
-                     
-                }
-                else{
-                  subLink.style.display='none'
-                      profiles.textContent = 'Hide div';
-                }              
-             })
-     
-           
-    </script> 
 
 
 </body>
 </html>
 
-<style>
-    .profile{
-   width: 50px;
-    height: 50px;
-    clip-path: circle();
-    justify-content: end;
-    margin-left: 540px;
-    position: absolute;
-    margin-top: -99px;
-      
-    }
-    .sub-menu-link {
-    
-        align-items: center;
-        text-decoration: none;
-        color: #fff;
-        margin: 12px 0;
-        margin-left: 540px;
-        margin-top: -47px;
-       
-    }
- 
 
-</style>
 
 
 

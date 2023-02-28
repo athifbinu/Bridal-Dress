@@ -115,6 +115,8 @@ router.get('/delete-product/:id',async(req,res)=>{
 
 
 
+
+
 //cart
 
 router.get('/cart',verifyloging,async(req,res)=>{
@@ -150,13 +152,14 @@ router.get('/add-to-cart/:id',(req,res)=>{
         
       })
   })
+   
+  //cart product delete
 
-  router.get('/remove-cart-product',(req,res,next)=>{
-    userHelpers.removeCartProduct(req.body).then((response) =>{
-      res.json(response)
-    })
-  })
-  
+  router.post("/remove-cart-product", (req, res, next) => {
+    userHelper.removeCartProduct(req.body).then((response) => {
+      res.json(response);
+    });
+  });
 
 
   //place order
