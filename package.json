@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon start ./bin/www"
+    "start": "node start ./bin/www"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -11,6 +11,7 @@
     "colors": "^1.4.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
     "express-handlebars": "^6.0.6",

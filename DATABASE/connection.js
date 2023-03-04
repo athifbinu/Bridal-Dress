@@ -1,5 +1,10 @@
 
 // const app=require("../app")
+const dotenv = require('dotenv');
+
+
+dotenv.config();
+
 
 const MongoClient=require('mongodb').MongoClient
 const state={
@@ -7,8 +12,10 @@ const state={
 
 }
 
+const db_url=process.env.MONGODB__URL
+
 module.exports.connect=function(done) {
-    const url='mongodb+srv://Bride:1234@cluster0.oc4bu50.mongodb.net/?retryWrites=true&w=majority'
+    const url=(db_url)
     const dbName="BrideDb"
     
 
